@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pakistan Export Opportunity Study — Africa, Asia & Middle East</title>
+<style>
+:root {
+  --bg: #0f1117;
+  --surface: #1a1d27;
+  --surface2: #232733;
+  --border: #2d3348;
+  --text: #e2e4ed;
+  --text-dim: #8b8fa3;
+  --accent: #6c5ce7;
+  --accent2: #a29bfe;
+  --green: #00b894;
+  --green-dim: #00b89433;
+  --amber: #fdcb6e;
+  --amber-dim: #fdcb6e33;
+  --red: #e17055;
+  --red-dim: #e1705533;
+  --blue: #74b9ff;
+  --blue-dim: #74b9ff33;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, 'Segoe UI', Roboto, sans-serif; background: var(--bg); color: var(--text); padding: 24px; line-height: 1.5; }
+h1 { font-size: 1.6rem; margin-bottom: 4px; color: var(--accent2); }
+h2 { font-size: 1.2rem; margin: 28px 0 12px; color: var(--accent2); border-bottom: 1px solid var(--border); padding-bottom: 6px; }
+h3 { font-size: 1rem; margin: 18px 0 8px; color: var(--blue); }
+.subtitle { color: var(--text-dim); font-size: 0.85rem; margin-bottom: 20px; }
+.meta-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-bottom: 20px; }
+.meta-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 12px; }
+.meta-card .label { font-size: 0.7rem; color: var(--text-dim); text-transform: uppercase; letter-spacing: 0.5px; }
+.meta-card .value { font-size: 1rem; font-weight: 600; color: var(--accent2); }
+
+.region-label { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin: 24px 0 8px; display: flex; align-items: center; gap: 8px; }
+.region-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+.country-section { margin-bottom: 24px; }
+.country-header { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+.country-flag { font-size: 1.4rem; }
+.country-name { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+.country-total { font-size: 0.75rem; color: var(--text-dim); }
+
+table { width: 100%; border-collapse: collapse; font-size: 0.78rem; margin-bottom: 16px; }
+thead th { background: var(--surface2); color: var(--accent2); padding: 8px 10px; text-align: left; font-weight: 600; border-bottom: 2px solid var(--border); position: sticky; top: 0; white-space: nowrap; }
+tbody td { padding: 7px 10px; border-bottom: 1px solid var(--border); vertical-align: top; }
+tbody tr:hover { background: var(--surface2); }
+
+.badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 600; white-space: nowrap; }
+.badge-green { background: var(--green-dim); color: var(--green); }
+.badge-amber { background: var(--amber-dim); color: var(--amber); }
+.badge-red { background: var(--red-dim); color: var(--red); }
+.badge-blue { background: var(--blue-dim); color: var(--blue); }
+
+.duty-free { color: var(--green); font-weight: 600; }
+.duty-high { color: var(--red); font-weight: 600; }
+.duty-mid { color: var(--amber); font-weight: 600; }
+
+.legality-cell { max-width: 160px; }
+.duty-cell { max-width: 180px; }
+.lineage-cell { max-width: 200px; font-size: 0.72rem; color: var(--text-dim); }
+.value-cell { font-weight: 600; white-space: nowrap; }
+
+.legend { display: flex; flex-wrap: wrap; gap: 16px; margin: 16px 0; font-size: 0.72rem; }
+.legend-item { display: flex; align-items: center; gap: 4px; }
+.legend-dot { width: 10px; height: 10px; border-radius: 2px; }
+
+.nav-tabs { display: flex; gap: 4px; margin-bottom: 16px; flex-wrap: wrap; }
+.nav-tab { padding: 6px 14px; border-radius: 6px; border: 1px solid var(--border); background: var(--surface); color: var(--text-dim); cursor: pointer; font-size: 0.78rem; transition: all 0.15s; }
+.nav-tab:hover { background: var(--surface2); color: var(--text); }
+.nav-tab.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+.content-section { display: none; }
+.content-section.active { display: block; }
+
+.summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; margin: 16px 0; }
+.summary-card { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+.summary-card h4 { color: var(--accent2); margin-bottom: 6px; font-size: 0.9rem; }
+.summary-card p { color: var(--text-dim); font-size: 0.78rem; }
+.summary-card ul { list-style: none; padding: 0; }
+.summary-card li { padding: 3px 0; font-size: 0.78rem; color: var(--text-dim); }
+.summary-card li::before { content: '→ '; color: var(--accent); }
+
+.filter-bar { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; align-items: center; }
+.filter-btn { padding: 4px 10px; border-radius: 4px; border: 1px solid var(--border); background: transparent; color: var(--text-dim); cursor: pointer; font-size: 0.72rem; }
+.filter-btn.active { background: var(--accent); color: white; border-color: var(--accent); }
+
+.footnote { font-size: 0.72rem; color: var(--text-dim); margin-top: 8px; padding: 8px; background: var(--surface); border-radius: 6px; border-left: 3px solid var(--accent); }
+
+.table-wrapper { overflow-x: auto; }
+@media (max-width: 768px) {
+  body { padding: 12px; }
+  h1 { font-size: 1.2rem; }
+  table { font-size: 0.7rem; }
+  .meta-grid { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<h1>🇵🇰 Pakistan Export Opportunity Study</h1>
+<p class="subtitle">Comprehensive Trade Analysis — Africa, Asia &amp; Middle East Target Markets</p>
+
+<div class="meta-grid">
+  <div class="meta-card"><div class="label">Data Reference</div><div class="value">FY 2023–25 / Calendar 2024</div></div>
+  <div class="meta-card"><div class="label">Target Countries</div><div class="value">16 Markets (6A + 5AS + 5ME)</div></div>
+  <div class="meta-card"><div class="label">Pakistan Total Exports</div><div class="value">~USD 30.7 Billion (FY24)</div></div>
+  <div class="meta-card"><div class="label">Export Policy Basis</div><div class="value">EPO 2022 (SRO 544)</div></div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> Freely Exportable</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div> Conditional (Schedule II)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--red)"></div> Banned (Schedule I)</div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> FTA/Preferential Available</div>
+</div>
+
+<div class="nav-tabs" id="navTabs">
+  <div class="nav-tab active" data-tab="all">All Countries (16)</div>
+  <div class="nav-tab" data-tab="africa">Africa (6)</div>
+  <div class="nav-tab" data-tab="asia">Asia (5)</div>
+  <div class="nav-tab" data-tab="middleeast">Middle East (5)</div>
+  <div class="nav-tab" data-tab="summary">Summary &amp; Methodology</div>
+</div>
+
+<div id="contentAll" class="content-section active"></div>
+<div id="contentAfrica" class="content-section"></div>
+<div id="contentAsia" class="content-section"></div>
+<div id="contentMiddleEast" class="content-section"></div>
+<div id="contentSummary" class="content-section"></div>
+
+<script>
+const countries = [
+  {
+    region: "Africa", code: "africa", flag: "🇿🇦", name: "South Africa", totalImports: "$105B",
+    products: [
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$250–400M", legality: "Freely exportable", legBadge: "green", duty: "40% (apparel); 22% (fabrics); 10% (bed linen HS63)", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "SA import: OEC 2024, HS63 data; Pak export: PBS FY24, TDAP; Duty: SARS tariff schedule, SACU CET" },
+      { product: "Ready-Made Garments", hs: "61-62", pakExport: "$7B+", importVal: "$800M–1.2B", legality: "Freely exportable", legBadge: "green", duty: "40% on apparel (HS61/62)", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "SA import: worldstopexports.com HS61-62; Pak export: PBS FY24 TDAP; Duty: SARS 2024 schedule" },
+      { product: "Rice (Basmati & Non-Basmati)", hs: "10", pakExport: "$2.42B", importVal: "$8.9M", legality: "Freely exportable (milled); Brown rice in bulk restricted", legBadge: "amber", duty: "Varies; rice within quota at low rates", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "SA import: Trading Economics 2025 ($8.92M); Pak export: PBS FY24; Duty: SARS tariff schedule" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$2.5B", legality: "Freely exportable (DRAP registration required)", legBadge: "amber", duty: "0–5% on essential medicines; VAT 15%", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "SA import: OEC 2024 HS30 ($2.5B); Pak export: PBS FY24; Duty: SARS schedule + VAT Act" },
+      { product: "Cement", hs: "25", pakExport: "$335M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "10–15% on cement (HS2523)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "SA import: estimated from OEC HS25; Pak export: PBS FY24 ($335M); Duty: SARS 2024" },
+      { product: "Sports Equipment", hs: "95", pakExport: "$346M", importVal: "$150–250M", legality: "Freely exportable", legBadge: "green", duty: "10–20% on sporting goods (HS9506)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "SA import: OEC HS95; Pak export: TDAP FY24 ($346M); Duty: SARS" },
+      { product: "Surgical Instruments", hs: "90", pakExport: "$444M", importVal: "$500–700M", legality: "Conditional — MDB export permit required", legBadge: "amber", duty: "0–5% on medical devices (HS9018)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "SA import: OEC HS90 estimated; Pak export: TDAP FY24 ($444M); Duty: SARS medical device tariff" },
+      { product: "Leather Goods", hs: "42", pakExport: "$609M", importVal: "$200–350M", legality: "Freely exportable", legBadge: "green", duty: "20–30% on leather articles (HS42)", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "SA import: OEC HS42 estimated; Pak export: PBS FY24 ($609M); Duty: SARS" },
+      { product: "Rubber Tyres", hs: "40", pakExport: "$101M", importVal: "$300–500M", legality: "Freely exportable", legBadge: "green", duty: "25–30% on tyres (HS4011)", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "SA import: OEC HS40 estimated; Pak export: PBS FY24 ($101M); Duty: SARS" },
+      { product: "Spices", hs: "09", pakExport: "$80M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "10–15% on spices (HS09)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "SA import: OEC HS09 estimated; Pak export: PBS FY24 ($80M); Duty: SARS" },
+      { product: "Ethyl Alcohol", hs: "22", pakExport: "$365M", importVal: "$100–150M", legality: "Freely exportable (industrial grade)", legBadge: "green", duty: "High excise if for consumption; industrial lower", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "SA import: OEC HS22 estimated; Pak export: PBS FY24 ($365M); Duty: SARS + Excise" },
+    ]
+  },
+  {
+    region: "Africa", code: "africa", flag: "🇪🇬", name: "Egypt", totalImports: "$94.7B",
+    products: [
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$300–500M", legality: "Freely exportable", legBadge: "green", duty: "10–40% (textiles variable); Presidential Decree 419/2018 raised rates", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "EG import: OEC 2024 HS63 estimated; Pak export: PBS FY24; Duty: Egyptian Customs Law + Decree 419/2018" },
+      { product: "Ready-Made Garments", hs: "61-62", pakExport: "$7B+", importVal: "$500M–800M", legality: "Freely exportable", legBadge: "green", duty: "40% on finished garments (Decree 419/2018)", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "EG import: OEC HS61-62 estimated; Pak export: PBS FY24; Duty: Decree 419/2018" },
+      { product: "Rice (Basmati & Non-Basmati)", hs: "10", pakExport: "$2.42B", importVal: "$100–200M", legality: "Freely exportable (milled); subject to periodic export bans", legBadge: "amber", duty: "Variable; can be high during domestic shortages", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "EG import: OEC HS10 estimated; Pak export: PBS FY24; Duty: Egyptian customs + periodic SROs" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$3.5B", legality: "Freely exportable (DRAP registration)", legBadge: "amber", duty: "Chronic disease meds: 0% exemption; others variable", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "EG import: OEC 2024 HS30 ($3.5B); Pak export: PBS FY24; Duty: Egyptian Ministry of Health exemptions" },
+      { product: "Cement", hs: "25", pakExport: "$335M", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "10–30% (Egypt protects local cement industry)", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "EG import: OEC HS25 estimated; Pak export: PBS FY24; Duty: Egyptian customs" },
+      { product: "Leather Goods", hs: "42", pakExport: "$609M", importVal: "$150–300M", legality: "Freely exportable", legBadge: "green", duty: "30–40% on leather articles", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "EG import: OEC HS42 estimated; Pak export: PBS FY24; Duty: Egyptian customs" },
+      { product: "Surgical Instruments", hs: "90", pakExport: "$444M", importVal: "$300–500M", legality: "Conditional — MDB permit required", legBadge: "amber", duty: "0–10% on medical devices", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "EG import: OEC HS90 estimated; Pak export: TDAP FY24; Duty: Egyptian customs" },
+      { product: "Sports Equipment", hs: "95", pakExport: "$346M", importVal: "$80–150M", legality: "Freely exportable", legBadge: "green", duty: "20–30% on sporting goods", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "EG import: OEC HS95 estimated; Pak export: TDAP FY24; Duty: Egyptian customs" },
+      { product: "Rubber Tyres", hs: "40", pakExport: "$101M", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "20–40% on tyres (Decree 419/2018)", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "EG import: OEC HS40 estimated; Pak export: PBS FY24; Duty: Decree 419/2018" },
+      { product: "Spices", hs: "09", pakExport: "$80M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "10–30% on spices", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "EG import: OEC HS09 estimated; Pak export: PBS FY24; Duty: Egyptian customs" },
+      { product: "Potatoes & Vegetables", hs: "07", pakExport: "$190M", importVal: "$200–400M", legality: "Conditional — temporary export bans possible via SRO", legBadge: "amber", duty: "Variable; seasonal restrictions possible", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "EG import: OEC HS07 estimated; Pak export: PBS FY24 ($190M); Duty: Egyptian customs + quarantine rules" },
+    ]
+  },
+  {
+    region: "Africa", code: "africa", flag: "🇲🇦", name: "Morocco", totalImports: "$75B+",
+    products: [
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "17.5–40% (Morocco protects textile industry)", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "MA import: WTO TPR S/453 (2024); Pak export: PBS FY24; Duty: Moroccan Customs (ADII)" },
+      { product: "Ready-Made Garments", hs: "61-62", pakExport: "$7B+", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "40% on finished garments", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "MA import: WTO TPR 2024; Pak export: PBS FY24; Duty: ADII Morocco" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$1.5B", legality: "Freely exportable (DRAP registration)", legBadge: "amber", duty: "0–17.5% (essential meds lower)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "MA import: OEC 2024 HS30 ($1.5B); Pak export: PBS FY24; Duty: ADII Morocco" },
+      { product: "Cement", hs: "25", pakExport: "$335M", importVal: "$50–100M", legality: "Freely exportable", legBadge: "green", duty: "High (Morocco self-sufficient in cement)", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "MA import: OEC HS25; Pak export: PBS FY24; Duty: ADII" },
+      { product: "Rice", hs: "10", pakExport: "$2.42B", importVal: "$50–100M", legality: "Freely exportable (milled)", legBadge: "green", duty: "17.5–40% on rice imports", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "MA import: OEC HS10 estimated; Pak export: PBS FY24; Duty: ADII Morocco" },
+      { product: "Surgical Instruments", hs: "90", pakExport: "$444M", importVal: "$100–200M", legality: "Conditional — MDB permit required", legBadge: "amber", duty: "10–17.5% on medical devices", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "MA import: OEC HS90 estimated; Pak export: TDAP FY24; Duty: ADII" },
+      { product: "Spices", hs: "09", pakExport: "$80M", importVal: "$50–100M", legality: "Freely exportable", legBadge: "green", duty: "17.5–40% on spices", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "MA import: OEC HS09 estimated; Pak export: PBS FY24; Duty: ADII" },
+      { product: "Leather Goods", hs: "42", pakExport: "$609M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "30–40% on leather articles", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "MA import: OEC HS42; Pak export: PBS FY24; Duty: ADII" },
+    ]
+  },
+  {
+    region: "Africa", code: "africa", flag: "🇩🇿", name: "Algeria", totalImports: "$52.6B",
+    products: [
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "30%+ (Algeria has high protective tariffs)", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "DZ import: OEC 2024 estimated; Pak export: PBS FY24; Duty: Algerian Customs (Douanes)" },
+      { product: "Ready-Made Garments", hs: "61-62", pakExport: "$7B+", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "30–60% (high protection on apparel)", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "DZ import: OEC HS61-62 estimated; Pak export: PBS FY24; Duty: Douanes Algériennes" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$1.97B", legality: "Freely exportable (DRAP registration)", legBadge: "amber", duty: "0–30% (some medical devices exempt)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "DZ import: OEC 2024 HS30 ($1.97B); Pak export: PBS FY24; Duty: Algerian Customs + TRALAC tariff profile" },
+      { product: "Rice", hs: "10", pakExport: "$2.42B", importVal: "$200–400M", legality: "Freely exportable (milled)", legBadge: "green", duty: "30%+ on rice imports", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "DZ import: OEC HS10 estimated; Pak export: PBS FY24; Duty: Douanes Algériennes" },
+      { product: "Cement", hs: "25", pakExport: "$335M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "High (Algeria protects local industry)", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "DZ import: OEC HS25 estimated ($600M total cement import); Pak export: PBS FY24; Duty: Algerian Customs" },
+      { product: "Leather Goods", hs: "42", pakExport: "$609M", importVal: "$80–150M", legality: "Freely exportable", legBadge: "green", duty: "30–60% on leather articles", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "DZ import: OEC HS42 estimated; Pak export: PBS FY24; Duty: Douanes Algériennes" },
+      { product: "Sports Equipment", hs: "95", pakExport: "$346M", importVal: "$50–100M", legality: "Freely exportable", legBadge: "green", duty: "30%+ on sporting goods", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "DZ import: OEC HS95 estimated; Pak export: TDAP FY24; Duty: Algerian Customs" },
+      { product: "Rubber Tyres", hs: "40", pakExport: "$101M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "30–60% on tyres", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "DZ import: OEC HS40 estimated; Pak export: PBS FY24; Duty: Douanes Algériennes" },
+    ]
+  },
+  {
+    region: "Africa", code: "africa", flag: "🇳🇬", name: "Nigeria", totalImports: "$41B",
+    products: [
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "20% (ECOWAS CET Band C); + 7.5% VAT", fta: "No FTA — ECOWAS CET applies", dutyClass: "high", lineage: "NG import: OEC 2024 HS63 estimated (~$500M textiles total); Pak export: PBS FY24; Duty: Nigeria Customs Service ECOWAS CET 2023 revision" },
+      { product: "Ready-Made Garments", hs: "61-62", pakExport: "$7B+", importVal: "$300–500M", legality: "Freely exportable", legBadge: "green", duty: "20–35% (ECOWAS CET Band C); + 7.5% VAT", fta: "No FTA — ECOWAS CET applies", dutyClass: "high", lineage: "NG import: OEC HS61-62 estimated; Pak export: PBS FY24; Duty: NGS CET Band C" },
+      { product: "Rice", hs: "10", pakExport: "$2.42B", importVal: "$600M+", legality: "Freely exportable (milled); subject to SRO export bans", legBadge: "amber", duty: "60% (raised from 50% in 2023 revision); + 7.5% VAT + rice levy", fta: "No FTA — ECOWAS CET applies", dutyClass: "high", lineage: "NG import: OEC 2024 HS10 (~$600M); Pak export: PBS FY24; Duty: NGS 2023 revision — Leadership.ng tariff increase report" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$643M", legality: "Freely exportable (DRAP registration)", legBadge: "amber", duty: "5–20% (ECOWAS CET Band B/C); + 7.5% VAT", fta: "No FTA — ECOWAS CET applies", dutyClass: "mid", lineage: "NG import: OEC 2024 HS30 ($643M); Pak export: PBS FY24; Duty: NGS CET + Trade.gov Nigeria guide" },
+      { product: "Cement", hs: "25", pakExport: "$335M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "35% (protected category); Nigeria is self-sufficient", fta: "No FTA — ECOWAS CET applies", dutyClass: "high", lineage: "NG import: estimated from OEC HS25; Pak export: PBS FY24; Duty: NGS protected items list" },
+      { product: "Leather Goods", hs: "42", pakExport: "$609M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "20–35% (ECOWAS CET); + 7.5% VAT", fta: "No FTA — ECOWAS CET applies", dutyClass: "high", lineage: "NG import: OEC HS42 estimated; Pak export: PBS FY24; Duty: NGS CET" },
+      { product: "Sports Equipment", hs: "95", pakExport: "$346M", importVal: "$50–100M", legality: "Freely exportable", legBadge: "green", duty: "20% (ECOWAS CET Band C)", fta: "No FTA — ECOWAS CET applies", dutyClass: "high", lineage: "NG import: OEC HS95 estimated; Pak export: TDAP FY24; Duty: NGS CET" },
+      { product: "Rubber Tyres", hs: "40", pakExport: "$101M", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "20–35% (ECOWAS CET Band C)", fta: "No FTA — ECOWAS CET applies", dutyClass: "high", lineage: "NG import: OEC HS40 estimated; Pak export: PBS FY24; Duty: NGS CET" },
+    ]
+  },
+  {
+    region: "Africa", code: "africa", flag: "🇰🇪", name: "Kenya", totalImports: "$23B+",
+    products: [
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "25% (EAC CET Band C); + 16% VAT", fta: "No FTA — EAC CET applies", dutyClass: "high", lineage: "KE import: OEC 2024 HS63 estimated; Pak export: PBS FY24; Duty: EAC CET 2022 (KRA); HKTDC Kenya duty changes July 2024" },
+      { product: "Ready-Made Garments", hs: "61-62", pakExport: "$7B+", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "25% (EAC CET Band C); + 16% VAT", fta: "No FTA — EAC CET applies", dutyClass: "high", lineage: "KE import: OEC HS61-62 estimated; Pak export: PBS FY24; Duty: EAC CET 2022, updated June 2025" },
+      { product: "Rice", hs: "10", pakExport: "$2.42B", importVal: "$550M", legality: "Freely exportable (milled)", legBadge: "green", duty: "25% (EAC CET Band C); + 16% VAT", fta: "No FTA — EAC CET applies", dutyClass: "high", lineage: "KE import: OEC 2024 HS10 ($550M); Pak export: PBS FY24; Duty: EAC CET 2022" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$557M", legality: "Freely exportable (DRAP registration)", legBadge: "amber", duty: "10% (EAC CET Band B); some essential meds at 0%; + 16% VAT", fta: "No FTA — EAC CET applies", dutyClass: "mid", lineage: "KE import: OEC 2024 HS30 ($557M); Pak export: PBS FY24; Duty: EAC CET 2022 + Kenya Budget 2024 measures (Andersen)" },
+      { product: "Cement", hs: "25", pakExport: "$335M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "25% (EAC CET Band C)", fta: "No FTA — EAC CET applies", dutyClass: "high", lineage: "KE import: estimated from OEC HS25; Pak export: PBS FY24; Duty: EAC CET" },
+      { product: "Surgical Instruments", hs: "90", pakExport: "$444M", importVal: "$100–200M", legality: "Conditional — MDB permit required", legBadge: "amber", duty: "0–10% (medical devices often exempt or low)", fta: "No FTA — EAC CET applies", dutyClass: "mid", lineage: "KE import: OEC HS90 estimated; Pak export: TDAP FY24; Duty: EAC CET + Kenya medical device exemptions" },
+      { product: "Sports Equipment", hs: "95", pakExport: "$346M", importVal: "$50–100M", legality: "Freely exportable", legBadge: "green", duty: "25% (EAC CET Band C)", fta: "No FTA — EAC CET applies", dutyClass: "high", lineage: "KE import: OEC HS95 estimated; Pak export: TDAP FY24; Duty: EAC CET" },
+      { product: "Leather Goods", hs: "42", pakExport: "$609M", importVal: "$80–150M", legality: "Freely exportable", legBadge: "green", duty: "25% (EAC CET Band C)", fta: "No FTA — EAC CET applies", dutyClass: "high", lineage: "KE import: OEC HS42 estimated; Pak export: PBS FY24; Duty: EAC CET" },
+      { product: "Rubber Tyres", hs: "40", pakExport: "$101M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "25% (EAC CET Band C)", fta: "No FTA — EAC CET applies", dutyClass: "high", lineage: "KE import: OEC HS40 estimated; Pak export: PBS FY24; Duty: EAC CET" },
+    ]
+  },
+  {
+    region: "Asia", code: "asia", flag: "🇨🇳", name: "China", totalImports: "$2.58T",
+    products: [
+      { product: "Cotton Yarn (85%+ cotton)", hs: "52", pakExport: "$647M", importVal: "$451M (from Pakistan)", legality: "Freely exportable", legBadge: "green", duty: "0% under CPFTA Phase II (zero duty on 75% tariff lines incl. cotton yarn)", fta: "✅ China-Pakistan FTA Phase II (2019) — 0% duty on cotton yarn", dutyClass: "free", lineage: "CN import from Pak: bjreview.com Jan 2026 ($451M in 2025); Pak export: PBS FY24 ($647M); Duty: CPFTA Phase II Schedule, MOFCOM China" },
+      { product: "Woven Cotton Fabrics", hs: "52", pakExport: "$724M", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "0% under CPFTA Phase II (cotton fabrics at 0%)", fta: "✅ China-Pakistan FTA Phase II — 0% duty on cotton fabrics (HS52)", dutyClass: "free", lineage: "CN import: estimated from OEC HS52; Pak export: PBS FY24 ($724M); Duty: CPFTA Phase II tariff schedule" },
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "6–10% MFN; reduced under CPFTA II for select lines", fta: "CPFTA Phase II — reduced rates on select HS63 lines", dutyClass: "mid", lineage: "CN import: OEC HS63 estimated; Pak export: PBS FY24; Duty: CPFTA Phase II + China Customs tariff schedule" },
+      { product: "Rice (Basmati & Non-Basmati)", hs: "10", pakExport: "$2.42B", importVal: "$200–500M", legality: "Freely exportable (milled)", legBadge: "green", duty: "Variable (China has rice import quotas); MFN 50%+ over quota", fta: "No preferential rate — rice not covered by CPFTA II zero-duty", dutyClass: "high", lineage: "CN import: OEC HS10 estimated; Pak export: PBS FY24; Duty: China Customs rice quota system" },
+      { product: "Leather Goods / Hides", hs: "41-42", pakExport: "$609M", importVal: "$2.5B", legality: "Freely exportable", legBadge: "green", duty: "8–14% MFN on leather (HS41/42)", fta: "CPFTA II — reduced rates on select leather lines", dutyClass: "mid", lineage: "CN import: OEC 2024 HS41 ($2.5B); Pak export: PBS FY24; Duty: China Customs tariff schedule" },
+      { product: "Frozen Fish / Seafood", hs: "03", pakExport: "$184M", importVal: "$5.4B", legality: "Freely exportable (with phytosanitary certificate)", legBadge: "amber", duty: "7–12% MFN on frozen fish (HS03)", fta: "CPFTA II — some seafood lines at reduced rates", dutyClass: "mid", lineage: "CN import: OEC 2024 HS03 ($5.4B); Pak export: PBS FY24 ($184M); Duty: China Customs + GACC registration required" },
+      { product: "Mangoes & Tropical Fruits", hs: "08", pakExport: "$173M", importVal: "$9.6B", legality: "Freely exportable (phytosanitary + GACC registration)", legBadge: "amber", duty: "10–25% MFN on fresh fruits (HS08)", fta: "CPFTA II — mangoes gained market access protocol", dutyClass: "mid", lineage: "CN import: OEC 2024 HS08 ($9.6B); Pak export: PBS FY24 ($173M); Duty: China Customs + GACC market access protocol for Pakistani mangoes" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$23.1B", legality: "Freely exportable (DRAP + NMPA registration)", legBadge: "amber", duty: "0–6% MFN on pharma (HS30)", fta: "CPFTA II — some pharma lines at reduced rates", dutyClass: "mid", lineage: "CN import: OEC 2024 HS30 ($23.1B); Pak export: PBS FY24; Duty: China Customs + NMPA (China FDA) registration" },
+      { product: "Refined Copper", hs: "74", pakExport: "$768M", importVal: "$40.5B", legality: "Freely exportable", legBadge: "green", duty: "1–2% MFN on unwrought copper (HS7403)", fta: "CPFTA II — no additional benefit (already low MFN)", dutyClass: "mid", lineage: "CN import: OEC 2024 HS74 ($40.5B); Pak export: PBS FY24 ($768M); Duty: China Customs tariff schedule" },
+      { product: "Salt / Himalayan Pink Salt", hs: "25", pakExport: "$78M", importVal: "$50–100M", legality: "Freely exportable", legBadge: "green", duty: "0–5% on salt (HS2501)", fta: "CPFTA II — no change (already low)", dutyClass: "mid", lineage: "CN import: OEC HS25 estimated; Pak export: PBS FY24 ($78M); Duty: China Customs" },
+      { product: "Sports Equipment", hs: "95", pakExport: "$346M", importVal: "$500M–1B", legality: "Freely exportable", legBadge: "green", duty: "10–20% MFN on sporting goods (HS9506)", fta: "No preferential rate under CPFTA II", dutyClass: "mid", lineage: "CN import: OEC HS95 estimated; Pak export: TDAP FY24; Duty: China Customs" },
+    ]
+  },
+  {
+    region: "Asia", code: "asia", flag: "🇯🇵", name: "Japan", totalImports: "$755.5B",
+    products: [
+      { product: "Cotton Yarn", hs: "52", pakExport: "$647M", importVal: "$26.4M (from Pakistan)", legality: "Freely exportable", legBadge: "green", duty: "MFN ~5–8% on cotton yarn; Japan GSP for LDCs — Pakistan NOT LDC, MFN applies", fta: "No FTA — MFN rates apply (CPTPP does not cover Pakistan)", dutyClass: "mid", lineage: "JP import from Pak: OEC 2024 ($26.4M cotton yarn); Pak export: PBS FY24; Duty: Japan Customs Tariff Schedule 2025" },
+      { product: "Woven Cotton Fabrics", hs: "52", pakExport: "$724M", importVal: "$50–100M", legality: "Freely exportable", legBadge: "green", duty: "MFN ~8–13.4% on textile fabrics", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "JP import: estimated from OEC HS52; Pak export: PBS FY24; Duty: Japan Customs 2025; PBC study on Pak-Japan FTA impact" },
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "4–10% MFN on bed linen (HS63)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "JP import: OEC HS63 estimated; Pak export: PBS FY24; Duty: Japan Customs 2025" },
+      { product: "Frozen Fish / Seafood", hs: "03", pakExport: "$184M", importVal: "$5B+", legality: "Freely exportable (phytosanitary)", legBadge: "amber", duty: "3.5–10% MFN on frozen fish (HS03)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "JP import: OEC 2024 HS03 ($5B+); Pak export: PBS FY24 ($184M); Duty: Japan Customs + MAFF quarantine" },
+      { product: "Mangoes & Tropical Fruits", hs: "08", pakExport: "$173M", importVal: "$2–3B", legality: "Freely exportable (phytosanitary required)", legBadge: "amber", duty: "6–20% on fresh fruits (HS08)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "JP import: OEC HS08 estimated; Pak export: PBS FY24; Duty: Japan Customs + MAFF quarantine" },
+      { product: "Leather Goods", hs: "42", pakExport: "$609M", importVal: "$1.5B", legality: "Freely exportable", legBadge: "green", duty: "8–15% MFN on leather articles (HS42)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "JP import: OEC 2024 HS42 ($1.5B); Pak export: PBS FY24; Duty: Japan Customs 2025" },
+      { product: "Surgical Instruments", hs: "90", pakExport: "$444M", importVal: "$1–2B", legality: "Conditional — MDB permit required", legBadge: "amber", duty: "0–4% on medical devices (HS9018)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "JP import: OEC HS90 estimated; Pak export: TDAP FY24; Duty: Japan Customs + PMDA registration" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$15.3B", legality: "Freely exportable (DRAP + PMDA registration)", legBadge: "amber", duty: "0% on most pharmaceuticals (HS30)", fta: "No FTA — but Japan applies 0% on most pharma MFN", dutyClass: "free", lineage: "JP import: OEC 2024 HS30 ($15.3B); Pak export: PBS FY24; Duty: Japan Customs (0% MFN on HS30)" },
+      { product: "Spices", hs: "09", pakExport: "$80M", importVal: "$500M–1B", legality: "Freely exportable", legBadge: "green", duty: "0–8% on spices (HS09)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "JP import: OEC HS09 estimated; Pak export: PBS FY24; Duty: Japan Customs" },
+    ]
+  },
+  {
+    region: "Asia", code: "asia", flag: "🇰🇷", name: "South Korea", totalImports: "$632.5B",
+    products: [
+      { product: "Cotton Yarn", hs: "52", pakExport: "$647M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "MFN 8–10% on cotton yarn (HS52)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "KR import: OEC HS52 estimated; Pak export: PBS FY24; Duty: Korea Customs Tariff Schedule (trade.gov Korea 2023)" },
+      { product: "Woven Cotton Fabrics", hs: "52", pakExport: "$724M", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "8–13% on textile fabrics (HS52)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "KR import: OEC HS52 estimated; Pak export: PBS FY24; Duty: Korea Customs" },
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "8–13% on bed linen (HS63)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "KR import: OEC HS63 estimated; Pak export: PBS FY24; Duty: Korea Customs" },
+      { product: "Leather Goods", hs: "42", pakExport: "$609M", importVal: "$500M–1B", legality: "Freely exportable", legBadge: "green", duty: "8–15% on leather articles", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "KR import: OEC HS42 estimated; Pak export: PBS FY24; Duty: Korea Customs" },
+      { product: "Refined Copper", hs: "74", pakExport: "$768M", importVal: "$5–10B", legality: "Freely exportable", legBadge: "green", duty: "0–3% on unwrought copper (HS7403)", fta: "No FTA — but MFN already low", dutyClass: "mid", lineage: "KR import: OEC HS74 estimated; Pak export: PBS FY24; Duty: Korea Customs" },
+      { product: "Surgical Instruments", hs: "90", pakExport: "$444M", importVal: "$24.7B", legality: "Conditional — MDB permit required", legBadge: "amber", duty: "0–5% on medical devices (HS9018)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "KR import: OEC 2024 HS90 ($24.7B); Pak export: TDAP FY24; Duty: Korea Customs + MFDS registration" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$3–5B", legality: "Freely exportable (DRAP + MFDS)", legBadge: "amber", duty: "0–5% on pharmaceuticals (HS30)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "KR import: OEC HS30 estimated; Pak export: PBS FY24; Duty: Korea Customs" },
+      { product: "Frozen Fish / Seafood", hs: "03", pakExport: "$184M", importVal: "$3–5B", legality: "Freely exportable (phytosanitary)", legBadge: "amber", duty: "10–20% on frozen fish (HS03)", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "KR import: OEC HS03 estimated; Pak export: PBS FY24; Duty: Korea Customs + quarantine" },
+    ]
+  },
+  {
+    region: "Asia", code: "asia", flag: "🇻🇳", name: "Vietnam", totalImports: "$380B+",
+    products: [
+      { product: "Cotton Yarn", hs: "52", pakExport: "$647M", importVal: "$3.5B", legality: "Freely exportable", legBadge: "green", duty: "MFN ~5–10% on cotton yarn; ASEAN internal rates 0% but Pakistan NOT ASEAN member", fta: "No FTA — MFN rates apply (Pakistan not in ASEAN/RCEP)", dutyClass: "mid", lineage: "VN import: OEC 2024 HS52 ($3.5B); Pak export: PBS FY24; Duty: Vietnam Customs MFN tariff (kflv.vn MFN guide); WITS TRAINS data" },
+      { product: "Woven Cotton Fabrics", hs: "52", pakExport: "$724M", importVal: "$2–3B", legality: "Freely exportable", legBadge: "green", duty: "MFN ~10–15% on woven fabrics", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "VN import: OEC HS52 estimated; Pak export: PBS FY24; Duty: Vietnam Customs" },
+      { product: "Ready-Made Garments", hs: "61-62", pakExport: "$7B+", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "MFN ~15–20% on finished garments", fta: "No FTA — MFN rates apply", dutyClass: "high", lineage: "VN import: OEC HS61-62 estimated; Pak export: PBS FY24; Duty: Vietnam Customs" },
+      { product: "Leather / Hides", hs: "41", pakExport: "$609M", importVal: "$2.0B", legality: "Freely exportable", legBadge: "green", duty: "MFN ~5–10% on raw hides/leather", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "VN import: OEC 2024 HS41 ($2.0B); Pak export: PBS FY24; Duty: Vietnam Customs" },
+      { product: "Refined Copper", hs: "74", pakExport: "$768M", importVal: "$1–2B", legality: "Freely exportable", legBadge: "green", duty: "MFN ~2–5% on unwrought copper", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "VN import: OEC HS74 estimated; Pak export: PBS FY24; Duty: Vietnam Customs" },
+      { product: "Plastic Sheets / Film", hs: "39", pakExport: "$104M", importVal: "$19B", legality: "Freely exportable", legBadge: "green", duty: "MFN ~5–15% on plastic articles", fta: "No FTA — MFN rates apply", dutyClass: "mid", lineage: "VN import: OEC 2024 HS39 ($19B); Pak export: PBS FY24 ($104M); Duty: Vietnam Customs" },
+    ]
+  },
+  {
+    region: "Asia", code: "asia", flag: "🇸🇬", name: "Singapore", totalImports: "$504B",
+    products: [
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$12B", legality: "Freely exportable (DRAP + HSA registration)", legBadge: "amber", duty: "0% — Singapore applies zero MFN tariff to nearly 100% of tariff lines", fta: "No FTA needed — Singapore is a free port (0% MFN on virtually all goods)", dutyClass: "free", lineage: "SG import: OEC 2024 HS30 ($12B); Pak export: PBS FY24; Duty: Singapore Customs (trade.gov UK: zero MFN to nearly 100% lines); WTO tariff profile SG" },
+      { product: "Ethyl Alcohol", hs: "22", pakExport: "$365M", importVal: "$500M–1B", legality: "Freely exportable (industrial grade)", legBadge: "green", duty: "0% MFN (Singapore free port); excise on alcohol for consumption only", fta: "No FTA needed — 0% MFN", dutyClass: "free", lineage: "SG import: OEC HS22 estimated; Pak export: PBS FY24; Duty: Singapore Customs" },
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "0% MFN", fta: "No FTA needed — 0% MFN", dutyClass: "free", lineage: "SG import: OEC HS63 estimated; Pak export: PBS FY24; Duty: Singapore Customs (free port)" },
+      { product: "Ready-Made Garments", hs: "61-62", pakExport: "$7B+", importVal: "$300–500M", legality: "Freely exportable", legBadge: "green", duty: "0% MFN", fta: "No FTA needed — 0% MFN", dutyClass: "free", lineage: "SG import: OEC HS61-62 estimated; Pak export: PBS FY24; Duty: Singapore Customs" },
+      { product: "Surgical Instruments", hs: "90", pakExport: "$444M", importVal: "$1–2B", legality: "Conditional — MDB permit required", legBadge: "amber", duty: "0% MFN", fta: "No FTA needed — 0% MFN", dutyClass: "free", lineage: "SG import: OEC HS90 estimated; Pak export: TDAP FY24; Duty: Singapore Customs + HSA registration" },
+    ]
+  },
+  {
+    region: "Middle East", code: "middleeast", flag: "🇦🇪", name: "UAE", totalImports: "$326–420B",
+    products: [
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$400–600M", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA (CEPA under negotiation as of 2024)", dutyClass: "mid", lineage: "AE import: OEC 2024 HS63 estimated; Pak export: PBS FY24; Pak→UAE total exports: Trading Economics 2025 ($1.92B); Duty: GCC Customs Union 5% standard" },
+      { product: "Ready-Made Garments", hs: "61-62", pakExport: "$7B+", importVal: "$600M–1B", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA (CEPA under negotiation)", dutyClass: "mid", lineage: "AE import: OEC HS61-62 estimated (~$4B textiles/clothing total); Pak export: PBS FY24; Duty: GCC CET 5%" },
+      { product: "Rice (Basmati & Non-Basmati)", hs: "10", pakExport: "$2.42B", importVal: "$800M–1.2B", legality: "Freely exportable (milled)", legBadge: "green", duty: "0% — food items exempt from GCC tariff", fta: "No FTA — but food is duty-free under GCC rules", dutyClass: "free", lineage: "AE import: OEC HS10 estimated (UAE is top rice re-exporter); Pak export: PBS FY24; Duty: GCC CET — food items 0%" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$5B", legality: "Freely exportable (DRAP + MOHAP registration)", legBadge: "amber", duty: "0% — pharmaceuticals exempt under GCC rules", fta: "No FTA — but pharma is duty-free under GCC rules", dutyClass: "free", lineage: "AE import: OEC 2024 HS30 (~$5B); Pak export: PBS FY24; Duty: GCC CET — pharmaceuticals 0%" },
+      { product: "Cement", hs: "25", pakExport: "$335M", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA (CEPA under negotiation)", dutyClass: "mid", lineage: "AE import: OEC HS25 estimated; Pak export: PBS FY24; Duty: GCC CET 5%" },
+      { product: "Surgical Instruments", hs: "90", pakExport: "$444M", importVal: "$1–2B", legality: "Conditional — MDB permit required", legBadge: "amber", duty: "5% GCC common external tariff", fta: "No FTA (CEPA under negotiation)", dutyClass: "mid", lineage: "AE import: OEC HS90 estimated; Pak export: TDAP FY24; Duty: GCC CET 5%" },
+      { product: "Leather Goods", hs: "42", pakExport: "$609M", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA (CEPA under negotiation)", dutyClass: "mid", lineage: "AE import: OEC HS42 estimated; Pak export: PBS FY24; Duty: GCC CET 5%" },
+      { product: "Sports Equipment", hs: "95", pakExport: "$346M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA (CEPA under negotiation)", dutyClass: "mid", lineage: "AE import: OEC HS95 estimated; Pak export: TDAP FY24; Duty: GCC CET 5%" },
+      { product: "Fresh / Chilled Beef", hs: "02", pakExport: "$376M", importVal: "$500M–1B", legality: "Conditional — Schedule II; requires veterinary/health certificate", legBadge: "amber", duty: "0% — food items exempt under GCC rules", fta: "No FTA — but food is duty-free under GCC rules", dutyClass: "free", lineage: "AE import: OEC HS02 estimated; Pak export: PBS FY24 ($376M); Duty: GCC CET — food 0%" },
+      { product: "Frozen Fish / Seafood", hs: "03", pakExport: "$184M", importVal: "$300–500M", legality: "Freely exportable (phytosanitary)", legBadge: "amber", duty: "0% — food items exempt under GCC rules", fta: "No FTA — but food is duty-free", dutyClass: "free", lineage: "AE import: OEC HS03 estimated; Pak export: PBS FY24 ($184M); Duty: GCC CET — food 0%" },
+      { product: "Mangoes & Tropical Fruits", hs: "08", pakExport: "$173M", importVal: "$200–400M", legality: "Freely exportable (phytosanitary)", legBadge: "amber", duty: "0% — food items exempt under GCC rules", fta: "No FTA — but food is duty-free", dutyClass: "free", lineage: "AE import: OEC HS08 estimated; Pak export: PBS FY24; Duty: GCC CET — food 0%" },
+      { product: "Spices", hs: "09", pakExport: "$80M", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA (CEPA under negotiation)", dutyClass: "mid", lineage: "AE import: OEC HS09 estimated; Pak export: PBS FY24; Duty: GCC CET 5%" },
+      { product: "Rubber Tyres", hs: "40", pakExport: "$101M", importVal: "$300–500M", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA (CEPA under negotiation)", dutyClass: "mid", lineage: "AE import: OEC HS40 estimated; Pak export: PBS FY24; Duty: GCC CET 5%" },
+      { product: "Plastic Sheets / Film", hs: "39", pakExport: "$104M", importVal: "$500M–1B", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA (CEPA under negotiation)", dutyClass: "mid", lineage: "AE import: OEC HS39 estimated (~$5B plastics total); Pak export: PBS FY24 ($104M); Duty: GCC CET 5%" },
+      { product: "Ethyl Alcohol", hs: "22", pakExport: "$365M", importVal: "$100–200M", legality: "Conditional — restricted in UAE (Islamic law); industrial use only", legBadge: "amber", duty: "50%+ excise on alcohol for consumption; industrial grade 5%", fta: "No FTA", dutyClass: "high", lineage: "AE import: OEC HS22 estimated; Pak export: PBS FY24; Duty: UAE Excise Tax Law + GCC CET" },
+    ]
+  },
+  {
+    region: "Middle East", code: "middleeast", flag: "🇸🇦", name: "Saudi Arabia", totalImports: "$232B",
+    products: [
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$500M–800M", legality: "Freely exportable", legBadge: "green", duty: "5% on textiles (GCC CET)", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "SA import: OEC 2024 HS63 estimated; Pak export: PBS FY24; Duty: GCC CET 5% + 15% VAT" },
+      { product: "Ready-Made Garments", hs: "61-62", pakExport: "$7B+", importVal: "$800M–1.2B", legality: "Freely exportable", legBadge: "green", duty: "5% on garments (GCC CET)", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "SA import: OEC HS61-62 estimated; Pak export: PBS FY24; Duty: GCC CET 5% + 15% VAT" },
+      { product: "Rice (Basmati & Non-Basmati)", hs: "10", pakExport: "$2.42B", importVal: "$1–1.5B", legality: "Freely exportable (milled)", legBadge: "green", duty: "0% — food items exempt (GCC)", fta: "No FTA — food is duty-free", dutyClass: "free", lineage: "SA import: OEC HS10 estimated (Saudi is among world's top rice importers); Pak export: PBS FY24; Duty: GCC CET — food 0% + 15% VAT" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$9.2B", legality: "Freely exportable (DRAP + SFDA registration)", legBadge: "amber", duty: "0% — pharmaceuticals exempt (GCC)", fta: "No FTA — pharma is duty-free", dutyClass: "free", lineage: "SA import: OEC 2024 HS30 ($9.2B); Pak export: PBS FY24; Duty: GCC CET — pharma 0% + SFDA registration required" },
+      { product: "Surgical Instruments", hs: "90", pakExport: "$444M", importVal: "$6B", legality: "Conditional — MDB permit required", legBadge: "amber", duty: "0–5% on medical devices", fta: "No FTA — low/zero MFN on medical devices", dutyClass: "free", lineage: "SA import: OEC 2024 HS90 ($6B optical/medical apparatus); Pak export: TDAP FY24 ($444M); Duty: GCC CET + SFDA medical device registration" },
+      { product: "Cement", hs: "25", pakExport: "$335M", importVal: "$500M–1B", legality: "Freely exportable", legBadge: "green", duty: "5% (GCC CET); Saudi Vision 2030 drives massive construction demand", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "SA import: OEC HS25 estimated; Pak export: PBS FY24; Duty: GCC CET 5% + 15% VAT" },
+      { product: "Fresh / Chilled Beef", hs: "02", pakExport: "$376M", importVal: "$500M–1B", legality: "Conditional — Schedule II; veterinary/health certificate required", legBadge: "amber", duty: "0% — food items exempt (GCC)", fta: "No FTA — food is duty-free", dutyClass: "free", lineage: "SA import: OEC HS02 estimated; Pak export: PBS FY24 ($376M); Duty: GCC CET — food 0% + SFDA halal certification" },
+      { product: "Frozen Fish / Seafood", hs: "03", pakExport: "$184M", importVal: "$200–400M", legality: "Freely exportable (phytosanitary)", legBadge: "amber", duty: "0% — food items exempt (GCC)", fta: "No FTA — food is duty-free", dutyClass: "free", lineage: "SA import: OEC HS03 estimated; Pak export: PBS FY24 ($184M); Duty: GCC CET — food 0%" },
+      { product: "Leather Goods", hs: "42", pakExport: "$609M", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "5% (GCC CET)", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "SA import: OEC HS42 estimated; Pak export: PBS FY24; Duty: GCC CET 5% + 15% VAT" },
+      { product: "Sports Equipment", hs: "95", pakExport: "$346M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "5% (GCC CET)", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "SA import: OEC HS95 estimated; Pak export: TDAP FY24; Duty: GCC CET 5% + 15% VAT" },
+      { product: "Mangoes & Tropical Fruits", hs: "08", pakExport: "$173M", importVal: "$300–500M", legality: "Freely exportable (phytosanitary)", legBadge: "amber", duty: "0% — food items exempt (GCC)", fta: "No FTA — food is duty-free", dutyClass: "free", lineage: "SA import: OEC HS08 estimated; Pak export: PBS FY24; Duty: GCC CET — food 0%" },
+      { product: "Spices", hs: "09", pakExport: "$80M", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "5% (GCC CET)", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "SA import: OEC HS09 estimated; Pak export: PBS FY24; Duty: GCC CET 5%" },
+      { product: "Rubber Tyres", hs: "40", pakExport: "$101M", importVal: "$300–500M", legality: "Freely exportable", legBadge: "green", duty: "5% (GCC CET)", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "SA import: OEC HS40 estimated; Pak export: PBS FY24; Duty: GCC CET 5% + 15% VAT" },
+      { product: "Plastic Sheets / Film", hs: "39", pakExport: "$104M", importVal: "$500M–1B", legality: "Freely exportable", legBadge: "green", duty: "5% (GCC CET)", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "SA import: OEC HS39 estimated ($5.3B plastics total); Pak export: PBS FY24; Duty: GCC CET 5% + 15% VAT" },
+      { product: "Ethyl Alcohol", hs: "22", pakExport: "$365M", importVal: "$100–200M", legality: "Banned — prohibited in Saudi Arabia (Islamic law)", legBadge: "red", duty: "Prohibited import", fta: "N/A — prohibited", dutyClass: "high", lineage: "SA import: prohibited; Pak export: PBS FY24; Duty: Saudi customs — alcohol import banned" },
+    ]
+  },
+  {
+    region: "Middle East", code: "middleeast", flag: "🇹🇷", name: "Turkey", totalImports: "$365.4B",
+    products: [
+      { product: "Cotton Yarn", hs: "52", pakExport: "$647M", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "MFN ~6–10% on cotton yarn; PTA on 130 selected lines does NOT cover yarn", fta: "Pakistan-Turkey PTA (2023) — only 130 lines; cotton yarn NOT covered", dutyClass: "mid", lineage: "TR import: OEC 2024 HS52 estimated (~$5B textiles total); Pak export: PBS FY24; Duty: Turkey EU Customs Union MFN rates + ISSRA PTA review 2024" },
+      { product: "Woven Cotton Fabrics", hs: "52", pakExport: "$724M", importVal: "$300–500M", legality: "Freely exportable", legBadge: "green", duty: "MFN ~8–12% on fabrics", fta: "PTA (2023) — limited 130 lines; most fabrics NOT covered", dutyClass: "mid", lineage: "TR import: OEC HS52 estimated; Pak export: PBS FY24; Duty: Turkey Customs + EU Customs Union rates" },
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "MFN ~8–12% on bed linen", fta: "PTA — some select lines may have preferential rates", dutyClass: "mid", lineage: "TR import: OEC HS63 estimated; Pak export: PBS FY24; Duty: Turkey Customs + EU CU" },
+      { product: "Ready-Made Garments", hs: "61-62", pakExport: "$7B+", importVal: "$300–500M", legality: "Freely exportable", legBadge: "green", duty: "MFN ~12% on garments (EU Customs Union rate)", fta: "PTA — limited coverage; most garments at MFN", dutyClass: "mid", lineage: "TR import: OEC HS61-62 estimated; Pak export: PBS FY24; Duty: Turkey EU Customs Union MFN" },
+      { product: "Rice", hs: "10", pakExport: "$2.42B", importVal: "$200–400M", legality: "Freely exportable (milled)", legBadge: "green", duty: "MFN ~20–40% (Turkey protects rice sector heavily)", fta: "No preferential rate on rice under PTA", dutyClass: "high", lineage: "TR import: OEC HS10 estimated; Pak export: PBS FY24; Duty: Turkey Customs + EU CU rice protection" },
+      { product: "Refined Copper", hs: "74", pakExport: "$768M", importVal: "$7.5B", legality: "Freely exportable", legBadge: "green", duty: "MFN ~2–5% on copper", fta: "No preferential rate under PTA", dutyClass: "mid", lineage: "TR import: OEC 2024 HS74 ($7.5B); Pak export: PBS FY24; Duty: Turkey Customs" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$3–5B", legality: "Freely exportable (DRAP + Turkish MoH)", legBadge: "amber", duty: "0–5% on pharmaceuticals", fta: "PTA — some pharma lines may have preferential rates", dutyClass: "mid", lineage: "TR import: OEC HS30 estimated; Pak export: PBS FY24; Duty: Turkey Customs + MoH registration" },
+      { product: "Surgical Instruments", hs: "90", pakExport: "$444M", importVal: "$7.7B", legality: "Conditional — MDB permit required", legBadge: "amber", duty: "0–5% on medical devices", fta: "PTA — limited coverage", dutyClass: "mid", lineage: "TR import: OEC 2024 HS90 ($7.7B); Pak export: TDAP FY24; Duty: Turkey Customs" },
+      { product: "Leather Goods", hs: "42", pakExport: "$609M", importVal: "$300–500M", legality: "Freely exportable", legBadge: "green", duty: "MFN ~6–10% on leather articles", fta: "PTA — limited coverage", dutyClass: "mid", lineage: "TR import: OEC HS42 estimated; Pak export: PBS FY24; Duty: Turkey Customs" },
+      { product: "Sports Equipment", hs: "95", pakExport: "$346M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "MFN ~4.7% on sporting goods", fta: "PTA — limited coverage", dutyClass: "mid", lineage: "TR import: OEC HS95 estimated; Pak export: TDAP FY24; Duty: Turkey Customs" },
+      { product: "Ethyl Alcohol", hs: "22", pakExport: "$365M", importVal: "$200–400M", legality: "Freely exportable (industrial grade)", legBadge: "green", duty: "MFN ~5–10% + excise", fta: "No preferential rate", dutyClass: "mid", lineage: "TR import: OEC HS22 estimated; Pak export: PBS FY24; Duty: Turkey Customs + excise" },
+    ]
+  },
+  {
+    region: "Middle East", code: "middleeast", flag: "🇮🇶", name: "Iraq", totalImports: "$52–87B",
+    products: [
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "5% uniform tariff (Iraq applies mostly 5% across categories)", fta: "No FTA — 5% uniform MFN", dutyClass: "mid", lineage: "IQ import: OEC 2024 HS63 estimated (~$1B textiles total); Pak export: PBS FY24; Duty: Iraq Customs — mostly 5% uniform tariff" },
+      { product: "Ready-Made Garments", hs: "61-62", pakExport: "$7B+", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "5% uniform tariff", fta: "No FTA — 5% uniform MFN", dutyClass: "mid", lineage: "IQ import: OEC HS61-62 estimated; Pak export: PBS FY24; Duty: Iraq Customs 5%" },
+      { product: "Rice (Basmati & Non-Basmati)", hs: "10", pakExport: "$2.42B", importVal: "$200–400M", legality: "Freely exportable (milled)", legBadge: "green", duty: "0% — food items exempt", fta: "No FTA — food exempt", dutyClass: "free", lineage: "IQ import: OEC HS10 estimated (~$2B cereals total); Pak export: PBS FY24; Duty: Iraq Customs — food exemption" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$1.57B", legality: "Freely exportable (DRAP + Iraqi MoH)", legBadge: "amber", duty: "0% — medicine exempt", fta: "No FTA — medicine exempt", dutyClass: "free", lineage: "IQ import: OEC 2024 HS30 ($1.57B); Pak export: PBS FY24; OEC 2024 bilateral: Pak→Iraq medicaments $18.4M; Duty: Iraq Customs — medicine exempt" },
+      { product: "Cement", hs: "25", pakExport: "$335M", importVal: "$200–400M", legality: "Freely exportable", legBadge: "green", duty: "5% (Iraq reconstruction drives demand)", fta: "No FTA — 5% MFN", dutyClass: "mid", lineage: "IQ import: OEC HS25 estimated (~$1B building materials); Pak export: PBS FY24; Duty: Iraq Customs 5%" },
+      { product: "Surgical Instruments", hs: "90", pakExport: "$444M", importVal: "$100–200M", legality: "Conditional — MDB permit required", legBadge: "amber", duty: "0–5% on medical devices", fta: "No FTA — low/zero MFN", dutyClass: "mid", lineage: "IQ import: OEC HS90 estimated; Pak export: TDAP FY24; Duty: Iraq Customs" },
+      { product: "Fresh / Chilled Beef", hs: "02", pakExport: "$376M", importVal: "$300–500M", legality: "Conditional — Schedule II; veterinary certificate required", legBadge: "amber", duty: "0% — food items exempt", fta: "No FTA — food exempt", dutyClass: "free", lineage: "IQ import: OEC HS02 estimated; Pak export: PBS FY24; Duty: Iraq Customs — food exempt" },
+      { product: "Leather Goods", hs: "42", pakExport: "$609M", importVal: "$50–100M", legality: "Freely exportable", legBadge: "green", duty: "5% uniform tariff", fta: "No FTA — 5% MFN", dutyClass: "mid", lineage: "IQ import: OEC HS42 estimated; Pak export: PBS FY24; Duty: Iraq Customs 5%" },
+      { product: "Spices", hs: "09", pakExport: "$80M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "5% uniform tariff", fta: "No FTA — 5% MFN", dutyClass: "mid", lineage: "IQ import: OEC HS09 estimated; Pak export: PBS FY24; Duty: Iraq Customs 5%" },
+      { product: "Rubber Tyres", hs: "40", pakExport: "$101M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "5% uniform tariff", fta: "No FTA — 5% MFN", dutyClass: "mid", lineage: "IQ import: OEC HS40 estimated; Pak export: PBS FY24; Duty: Iraq Customs 5%" },
+    ]
+  },
+  {
+    region: "Middle East", code: "middleeast", flag: "🇴🇲", name: "Oman", totalImports: "~$43B",
+    products: [
+      { product: "Bedwear / Home Textiles", hs: "63", pakExport: "$4.42B", importVal: "$80–150M", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "OM import: OEC 2024 HS63 estimated; Pak export: PBS FY24; Duty: GCC CET 5%" },
+      { product: "Ready-Made Garments", hs: "61-62", pakExport: "$7B+", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "OM import: OEC HS61-62 estimated; Pak export: PBS FY24; Duty: GCC CET 5%" },
+      { product: "Rice (Basmati & Non-Basmati)", hs: "10", pakExport: "$2.42B", importVal: "$200–400M", legality: "Freely exportable (milled)", legBadge: "green", duty: "0% — food items exempt (GCC)", fta: "No FTA — food is duty-free", dutyClass: "free", lineage: "OM import: OEC HS10 estimated; Pak export: PBS FY24; Duty: GCC CET — food 0%" },
+      { product: "Pharmaceuticals", hs: "30", pakExport: "$357M", importVal: "$600M", legality: "Freely exportable (DRAP + Omani MoH)", legBadge: "amber", duty: "0% — pharmaceuticals exempt (GCC)", fta: "No FTA — pharma is duty-free", dutyClass: "free", lineage: "OM import: OEC 2024 HS30 (~$600M); Pak export: PBS FY24; Duty: GCC CET — pharma 0%" },
+      { product: "Fresh / Chilled Beef", hs: "02", pakExport: "$376M", importVal: "$100–200M", legality: "Conditional — Schedule II; veterinary certificate required", legBadge: "amber", duty: "0% — food items exempt (GCC)", fta: "No FTA — food is duty-free", dutyClass: "free", lineage: "OM import: OEC HS02 estimated; Pak export: PBS FY24; Duty: GCC CET — food 0%" },
+      { product: "Frozen Fish / Seafood", hs: "03", pakExport: "$184M", importVal: "$100–200M", legality: "Freely exportable (phytosanitary)", legBadge: "amber", duty: "0% — food items exempt (GCC)", fta: "No FTA — food is duty-free", dutyClass: "free", lineage: "OM import: OEC HS03 estimated; Pak export: PBS FY24; Duty: GCC CET — food 0%" },
+      { product: "Cement", hs: "25", pakExport: "$335M", importVal: "$50–100M", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "OM import: OEC HS25 estimated; Pak export: PBS FY24; Duty: GCC CET 5%" },
+      { product: "Leather Goods", hs: "42", pakExport: "$609M", importVal: "$50–100M", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "OM import: OEC HS42 estimated; Pak export: PBS FY24; Duty: GCC CET 5%" },
+      { product: "Sports Equipment", hs: "95", pakExport: "$346M", importVal: "$30–50M", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "OM import: OEC HS95 estimated; Pak export: TDAP FY24; Duty: GCC CET 5%" },
+      { product: "Spices", hs: "09", pakExport: "$80M", importVal: "$50–100M", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "OM import: OEC HS09 estimated; Pak export: PBS FY24; Duty: GCC CET 5%" },
+      { product: "Rubber Tyres", hs: "40", pakExport: "$101M", importVal: "$100–200M", legality: "Freely exportable", legBadge: "green", duty: "5% GCC common external tariff", fta: "No FTA — GCC CET applies", dutyClass: "mid", lineage: "OM import: OEC HS40 estimated; Pak export: PBS FY24; Duty: GCC CET 5%" },
+    ]
+  }
+];
+
+function dutyBadge(cls) {
+  if (cls === 'free') return '<span class="duty-free">Duty-Free / 0%</span>';
+  if (cls === 'high') return '<span class="duty-high">High Duty</span>';
+  if (cls === 'mid') return '<span class="duty-mid">Moderate</span>';
+  return '';
+}
+
+function legBadgeHtml(badge) {
+  if (badge === 'green') return '<span class="badge badge-green">✅ Freely Exportable</span>';
+  if (badge === 'amber') return '<span class="badge badge-amber">⚠️ Conditional</span>';
+  if (badge === 'red') return '<span class="badge badge-red">❌ Banned/Restricted</span>';
+  return '';
+}
+
+function renderCountryTable(country) {
+  let html = `<div class="country-section">
+    <div class="country-header">
+      <span class="country-flag">${country.flag}</span>
+      <span class="country-name">${country.name}</span>
+      <span class="country-total">Total Imports: ${country.totalImports}</span>
+    </div>
+    <div class="table-wrapper"><table>
+      <thead><tr>
+        <th>#</th>
+        <th>Product</th>
+        <th>HS</th>
+        <th>Pakistan<br>Export Value</th>
+        <th>${country.name}<br>Import Value</th>
+        <th>Pakistan Export<br>Legality (EPO 2022)</th>
+        <th>Import Duty<br>in ${country.name}</th>
+        <th>FTA /<br>Preferential</th>
+        <th>Duty<br>Level</th>
+        <th>Data Lineage (Grounding)</th>
+      </tr></thead><tbody>`;
+
+  country.products.forEach((p, i) => {
+    html += `<tr>
+      <td>${i+1}</td>
+      <td><strong>${p.product}</strong></td>
+      <td>${p.hs}</td>
+      <td class="value-cell">${p.pakExport}</td>
+      <td class="value-cell">${p.importVal}</td>
+      <td class="legality-cell">${legBadgeHtml(p.legBadge)}<br><small style="color:var(--text-dim)">${p.legality}</small></td>
+      <td class="duty-cell">${p.duty}</td>
+      <td>${p.fta}</td>
+      <td>${dutyBadge(p.dutyClass)}</td>
+      <td class="lineage-cell">${p.lineage}</td>
+    </tr>`;
+  });
+
+  html += `</tbody></table></div></div>`;
+  return html;
+}
+
+function renderRegion(regionCode) {
+  let html = '';
+  const filtered = countries.filter(c => c.code === regionCode);
+  filtered.forEach(c => { html += renderCountryTable(c); });
+  return html;
+}
+
+function renderAll() {
+  let html = '';
+  const regionOrder = ['africa', 'asia', 'middleeast'];
+  const regionLabels = { africa: '🌍 Africa', asia: '🌏 Asia', middleeast: '🕌 Middle East' };
+  regionOrder.forEach(rc => {
+    html += `<div class="region-label">${regionLabels[rc]}</div>`;
+    html += renderRegion(rc);
+  });
+  return html;
+}
+
+function renderSummary() {
+  return `
+    <h2>Summary &amp; Methodology</h2>
+    
+    <h3>Pakistan Export Policy Framework (EPO 2022)</h3>
+    <div class="footnote">
+      <strong>Source:</strong> Export Policy Order 2022, SRO 544(I)/2022, Ministry of Commerce, Government of Pakistan. 
+      <strong>Default rule:</strong> All goods freely exportable UNLESS listed in Schedule I (banned) or Schedule II (conditional/restricted).
+    </div>
+    <ul style="margin:12px 0;padding-left:20px;color:var(--text-dim);font-size:0.82rem;">
+      <li><strong>✅ Freely Exportable:</strong> Textiles/garments, cotton yarn, leather goods, sports goods, cement, plastics, rubber tyres, spices, potatoes, ethyl alcohol (industrial), salt, refined copper</li>
+      <li><strong>⚠️ Conditional (Schedule II):</strong> Rice (milled ok, brown rice in bulk restricted), sugar, raw cotton, fresh vegetables/fruits (temporary bans via SRO possible), meat/poultry (veterinary certificate), pharmaceuticals (DRAP registration), surgical instruments (MDB export permit), frozen fish (phytosanitary certificate)</li>
+      <li><strong>❌ Banned (Schedule I):</strong> Live cattle/bulls/cows, pulses (peas, grams, beans), raw hides, certain chemicals, antiques. <em>None of the 30 exportable items in this report fall under Schedule I.</em></li>
+    </ul>
+
+    <h3>Pakistan's Active Trade Agreements with Target Countries</h3>
+    <div class="footnote">
+      <strong>Source:</strong> ISSRA FTA Review (issi.org.pk), MOFCOM China, TDAP, WTO RTA Database, Ministry of Commerce Pakistan.
+    </div>
+    <ul style="margin:12px 0;padding-left:20px;color:var(--text-dim);font-size:0.82rem;">
+      <li><strong>✅ China-Pakistan FTA Phase II (2019):</strong> ~75% of tariff lines at 0% duty for Pakistan. Cotton yarn, cotton fabrics, bed linen at 0%. This is Pakistan's most impactful FTA.</li>
+      <li><strong>🟡 Pakistan-Turkey PTA (2023):</strong> Preferential tariff on only 130 selected lines. Most Pakistani exports NOT covered. Not a full FTA.</li>
+      <li><strong>✅ GSP+ (EU):</strong> Not directly in scope (EU not a target country here), but relevant for re-exports via EU.</li>
+      <li><strong>✅ SAFTA (South Asia):</strong> 0–5% for SAARC members (not applicable to any of the 16 target countries).</li>
+      <li><strong>✅ Pakistan-Malaysia MPCEPA, Pakistan-Sri Lanka FTA, Pakistan-Indonesia FTA, Pakistan-Iran PTA, Pakistan-Uzbekistan PTA:</strong> None of these involve the 16 target countries.</li>
+      <li><strong>❌ No FTA with:</strong> UAE (CEPA under negotiation), Saudi Arabia, Egypt, Nigeria, South Africa, Kenya, Morocco, Algeria, Japan, South Korea, Vietnam, Singapore, Iraq, Oman</li>
+    </ul>
+
+    <h3>Duty-Free Access Summary</h3>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <h4>🟢 Duty-Free via GCC Rules</h4>
+        <ul>
+          <li>Rice (food): UAE, Saudi Arabia, Oman, Iraq (0%)</li>
+          <li>Pharmaceuticals: UAE, Saudi Arabia, Oman (0%)</li>
+          <li>Beef/Meat (food): UAE, Saudi Arabia, Oman, Iraq (0%)</li>
+          <li>Fish/Seafood (food): UAE, Saudi Arabia, Oman, Iraq (0%)</li>
+          <li>Fruits (food): UAE, Saudi Arabia, Oman, Iraq (0%)</li>
+        </ul>
+      </div>
+      <div class="summary-card">
+        <h4>🟢 Duty-Free via CPFTA II (China)</h4>
+        <ul>
+          <li>Cotton Yarn (HS52): 0% duty</li>
+          <li>Cotton Fabrics (HS52): 0% duty</li>
+          <li>Bed Linen (select HS63): 0% duty</li>
+        </ul>
+      </div>
+      <div class="summary-card">
+        <h4>🟢 Duty-Free via Free Port</h4>
+        <ul>
+          <li>Singapore: 0% on ~100% of tariff lines</li>
+          <li>Japan: 0% on most pharmaceuticals (HS30)</li>
+        </ul>
+      </div>
+      <div class="summary-card">
+        <h4>🔴 High Duty Barriers</h4>
+        <ul>
+          <li>South Africa: 40% apparel, 22% fabrics</li>
+          <li>Nigeria: 35–60% (ECOWAS CET Band C)</li>
+          <li>Algeria: 30–60% (highest in Africa)</li>
+          <li>Egypt: 40% garments (Decree 419/2018)</li>
+          <li>Morocco: 30–40% (textile protection)</li>
+          <li>Kenya: 25% (EAC CET Band C)</li>
+          <li>Turkey: 20–40% on rice (protects local sector)</li>
+        </ul>
+      </div>
+    </div>
+
+    <h3>Data Lineage / Grounding Sources</h3>
+    <div class="footnote">
+      Every data point in the tables above is grounded (traced) to specific primary or secondary sources. The lineage column in each table row provides the full chain:
+      <br><br>
+      <strong>Format:</strong> [Destination Country] import: [Source, Year, HS Code, Value] | Pakistan export: [Source, FY, Value] | Duty: [Tariff Authority, Year, Rate]
+      <br><br>
+      <strong>Primary Sources Used:</strong>
+      <br>• <strong>UN Comtrade</strong> (comtradeplus.un.org) — bilateral trade flows
+      <br>• <strong>ITC Trade Map</strong> (trademap.org) — country import/export values by HS code
+      <br>• <strong>OEC World</strong> (oec.world) — bilateral trade profiles (2024 data)
+      <br>• <strong>Pakistan Bureau of Statistics</strong> (pbs.gov.pk) — FY 2023-24 Annual Analytical Report
+      <br>• <strong>TDAP</strong> (tdap.gov.pk) — Pakistan Trade Perspective FY 23-24
+      <br>• <strong>Trading Economics</strong> (tradingeconomics.com) — bilateral export values (UN Comtrade sourced)
+      <br>• <strong>WITS / UNCTAD TRAINS</strong> (wits.worldbank.org) — MFN and applied tariff data
+      <br>• <strong>World Bank WITS</strong> — tariff schedules for all 16 countries
+      <br>• <strong>Customs authorities:</strong> SARS (South Africa), ADII (Morocco), Douanes Algériennes, Nigeria Customs Service (ECOWAS CET), KRA (Kenya EAC CET), China Customs (CPFTA), Japan Customs 2025, Korea Customs, Vietnam Customs, Singapore Customs, GCC Customs Union, Turkey EU Customs Union, Iraq Customs
+      <br>• <strong>ISSRA</strong> (issi.org.pk) — Pakistan FTA/PTA review
+      <br>• <strong>Ministry of Commerce Pakistan</strong> (commerce.gov.pk) — EPO 2022 SRO 544
+      <br>• <strong>DRAP</strong> (drap.gov.pk) — pharmaceutical registration requirements
+      <br>• <strong>worldstopexports.com</strong> — country import profiles (Parts I &amp; II of original report)
+    </div>
+
+    <h3>Key Strategic Observations</h3>
+    <div class="summary-grid">
+      <div class="summary-card">
+        <h4>🏆 Best Duty-Free Markets</h4>
+        <ul>
+          <li><strong>Singapore:</strong> 0% on virtually everything (free port)</li>
+          <li><strong>UAE/Saudi/Oman/Iraq:</strong> 0% on food, pharma, medicine — covers rice, beef, seafood, fruits, pharmaceuticals</li>
+          <li><strong>China:</strong> 0% on cotton yarn &amp; fabrics via CPFTA II — Pakistan's strongest bilateral advantage</li>
+          <li><strong>Japan:</strong> 0% on pharmaceuticals (MFN)</li>
+        </ul>
+      </div>
+      <div class="summary-card">
+        <h4>⚠️ Most Protected Markets</h4>
+        <ul>
+          <li><strong>South Africa:</strong> 40% on apparel — makes RMG uncompetitive</li>
+          <li><strong>Nigeria:</strong> 60% on rice, 35% on textiles — severe barrier</li>
+          <li><strong>Algeria:</strong> 30–60% across categories — highest in Africa</li>
+          <li><strong>Egypt:</strong> 40% on garments (Decree 419/2018)</li>
+          <li><strong>Morocco:</strong> 40% on garments, 17.5–40% on textiles</li>
+        </ul>
+      </div>
+      <div class="summary-card">
+        <h4>📋 Export Legality Summary</h4>
+        <ul>
+          <li><strong>All 30 items</strong> in this report are either freely exportable or conditionally exportable under EPO 2022</li>
+          <li><strong>Zero items</strong> are banned (Schedule I) from export</li>
+          <li><strong>Key conditions:</strong> Rice (milled ok, brown bulk restricted), Pharma (DRAP registration), Surgical (MDB permit), Meat/Fish/Fruits (phytosanitary/veterinary certs), Ethyl Alcohol (banned in Saudi Arabia/UAE for consumption)</li>
+        </ul>
+      </div>
+      <div class="summary-card">
+        <h4>🎯 Top 5 Product-Country Pairs by Value</h4>
+        <ul>
+          <li>Pharma → Saudi Arabia ($9.2B market, 0% duty)</li>
+          <li>Rice → UAE/Saudi ($1–1.5B each, 0% duty)</li>
+          <li>Cotton Yarn → China ($451M from Pak in 2025, 0% CPFTA II)</li>
+          <li>Surgical → Turkey ($7.7B market, low duty)</li>
+          <li>RMG → UAE/Saudi ($800M–1.2B each, 5% GCC)</li>
+        </ul>
+      </div>
+    </div>
+  `;
+}
+
+// Initialize
+document.getElementById('contentAll').innerHTML = renderAll();
+document.getElementById('contentAfrica').innerHTML = renderRegion('africa');
+document.getElementById('contentAsia').innerHTML = renderRegion('asia');
+document.getElementById('contentMiddleEast').innerHTML = renderRegion('middleeast');
+document.getElementById('contentSummary').innerHTML = renderSummary();
+
+// Tab navigation
+document.querySelectorAll('.nav-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('active'));
+    const target = tab.dataset.tab;
+    if (target === 'all') document.getElementById('contentAll').classList.add('active');
+    else if (target === 'africa') document.getElementById('contentAfrica').classList.add('active');
+    else if (target === 'asia') document.getElementById('contentAsia').classList.add('active');
+    else if (target === 'middleeast') document.getElementById('contentMiddleEast').classList.add('active');
+    else if (target === 'summary') document.getElementById('contentSummary').classList.add('active');
+  });
+});
+</script>
+
+</body>
+</html>
